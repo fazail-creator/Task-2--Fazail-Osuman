@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="container">
+
+        <h1>Dashboard</h1>
+
+        <h2 id="welcome"></h2>
+
+        <button id="logoutBtn">
+            Logout
+        </button>
+        <h3>All Users</h3>
+        <ul id="usersList"></ul>
+
+    </div>
+
+    <script>
+
+        const user = JSON.parse(localStorage.getItem("user"));
+
+    if (user) {
+        document.getElementById("welcome").textContent =
+            `Welcome ${user.name}`;
+    }
+
+    // Logout
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+        localStorage.removeItem("user");
+        window.location.href = "index.html";
+    });
+
+    // Fetch all users
+    async function loadUsers() {
+
+        try {
+            const response = await fetch("http://localhost:3000/api/auth/users");
+            const users = await response.json();
+
+            const list = document.getElementById("usersList");
+
+            users.forEach(u => {
+                const li = document.createElement("li");
+                li.textContent = `${u.name} (${u.email})`;
+                list.appendChild(li);
+            });
+
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    loadUsers();
+
+    </script>
+
+</body>
+</html>
