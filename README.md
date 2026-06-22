@@ -1,5 +1,7 @@
 Authenticator App
 [ Node.js ]  [ Express ]  [ MySQL ]  [ bcrypt ]
+
+
 About
 Authenticator App is a lightweight authentication starter that demonstrates a complete login/register flow. It is suitable as a learning project or as a foundation for building more complex web applications.
 
